@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="./favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantova</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-left">
+      <img src="./apple-touch-icon.png" class="logo" style="border-radius:10px;width:32px;height:32px;object-fit:cover;" />
+      <span class="brand">Quantova</span>
+    </div>
+    <div class="nav-center">
+      <a href="./index.html" class="nav-btn active">📊 Dashboard</a>
+      <a href="./historico.html" class="nav-btn">📋 Histórico</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn" onclick="abrirDefinicoes()">⚙️</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="filtros">
+      <div class="data-nav">
+        <button onclick="mesAnterior()">‹</button>
+        <span id="dataAtual">—</span>
+        <button onclick="mesSeguinte()">›</button>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card"><span>Despesas</span><br/><strong id="total">€0.00</strong></div>
+      <div class="card"><span>Receitas</span><br/><strong id="receitas">€0.00</strong></div>
+      <div class="card"><span>Saldo</span><br/><strong id="saldo">€0.00</strong></div>
+      <div class="card"><span>Categorias</span><br/><strong id="count">0</strong></div>
+      <div class="card"><span>Média/dia</span><br/><strong id="media">€0</strong></div>
+    </div>
+
+    <div class="grafico">
+      <canvas id="chartCanvas"></canvas>
+    </div>
+
+    <div class="categorias-box" style="margin-bottom:20px;">
+      <h3>Despesas por Categoria</h3>
+      <div id="lista"></div>
+    </div>
+
+    <div class="categorias-box">
+      <h3>Receitas por Categoria</h3>
+      <div id="listaReceitas"></div>
+    </div>
+  </div>
+
+  <a href="./add.html" class="fab">+</a>
+
+  <!-- Modal Definições -->
+  <div id="modalDefinicoes" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;align-items:center;justify-content:center;">
+    <div style="background:white;border-radius:20px;padding:30px;width:90%;max-width:400px;">
+      <h3 style="margin-top:0;">⚙️ Definições</h3>
+      <label>Moeda</label>
+      <select id="selectMoeda" class="input-normal" style="margin-bottom:12px;">
+        <option value="€">€ Euro</option>
+        <option value="$">$ Dólar</option>
+        <option value="£">£ Libra</option>
+        <option value="R$">R$ Real</option>
+      </select>
+      <p id="moedaMsg" style="display:none;color:#22c55e;font-size:13px;">✅ Moeda guardada!</p>
+      <button onclick="guardarMoeda()" class="btn-submit" style="margin-bottom:10px;">Guardar Moeda</button>
+      <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;" />
+      <p style="font-size:13px;color:#64748b;">Esta ação é irreversível. Todos os registos serão apagados permanentemente.</p>
+      <button onclick="apagarTudo()" style="width:100%;padding:12px;border-radius:10px;border:none;background:#ef4444;color:white;cursor:pointer;font-size:14px;">🗑 Apagar todos os dados</button>
+      <button onclick="fecharDefinicoes()" class="btn-voltar" style="margin-top:10px;">Fechar</button>
+    </div>
+  </div>
+
+  <script src="./db-local.js"></script>
+  <script src="./settings.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

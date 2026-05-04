@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="./favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Histórico – Quantova</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-left">
+      <img src="./apple-touch-icon.png" class="logo" style="border-radius:10px;width:32px;height:32px;object-fit:cover;" />
+      <span class="brand">Quantova</span>
+    </div>
+    <div class="nav-center">
+      <a href="./index.html" class="nav-btn">📊 Dashboard</a>
+      <a href="./historico.html" class="nav-btn active">📋 Histórico</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn" onclick="abrirDefinicoes()">⚙️</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="header-historico">
+      <h2>Histórico</h2>
+      <p>Todas as tuas transações</p>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="filtro-btn cat-btn active" onclick="filtrar('todas')" style="padding:8px 14px;">Todas</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Alimentacao')" style="padding:8px 14px;">🍔 Alimentação</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Transporte')" style="padding:8px 14px;">🚗 Transporte</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Compras')" style="padding:8px 14px;">🛍️ Compras</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Lazer')" style="padding:8px 14px;">🎮 Lazer</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Saude')" style="padding:8px 14px;">💊 Saúde</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Salario')" style="padding:8px 14px;">💰 Salário</button>
+      <button class="filtro-btn cat-btn" onclick="filtrar('Outros')" style="padding:8px 14px;">📦 Outros</button>
+    </div>
+
+    <div id="listaHistorico"></div>
+  </div>
+
+  <a href="./add.html" class="fab">+</a>
+
+  <!-- Modal Definições -->
+  <div id="modalDefinicoes" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;align-items:center;justify-content:center;">
+    <div style="background:white;border-radius:20px;padding:30px;width:90%;max-width:400px;">
+      <h3 style="margin-top:0;">⚙️ Definições</h3>
+      <label>Moeda</label>
+      <select id="selectMoeda" class="input-normal" style="margin-bottom:12px;">
+        <option value="€">€ Euro</option>
+        <option value="$">$ Dólar</option>
+        <option value="£">£ Libra</option>
+        <option value="R$">R$ Real</option>
+      </select>
+      <p id="moedaMsg" style="display:none;color:#22c55e;font-size:13px;">✅ Moeda guardada!</p>
+      <button onclick="guardarMoeda()" class="btn-submit" style="margin-bottom:10px;">Guardar Moeda</button>
+      <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;" />
+      <button onclick="apagarTudo()" style="width:100%;padding:12px;border-radius:10px;border:none;background:#ef4444;color:white;cursor:pointer;font-size:14px;">🗑 Apagar todos os dados</button>
+      <button onclick="fecharDefinicoes()" class="btn-voltar" style="margin-top:10px;">Fechar</button>
+    </div>
+  </div>
+
+  <script src="./db-local.js"></script>
+  <script src="./settings.js"></script>
+  <script src="./historico.js"></script>
+</body>
+</html>
