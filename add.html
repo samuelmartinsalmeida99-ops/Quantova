@@ -12,45 +12,111 @@
 <body class="add-body">
   <nav class="nav">
     <div class="nav-left">
-      <img src="./apple-touch-icon.png" class="logo" style="border-radius:10px;width:32px;height:32px;object-fit:cover;" />
+      <img
+        src="./apple-touch-icon.png"
+        class="logo"
+        style="border-radius:10px;width:32px;height:32px;object-fit:cover;"
+        alt="Logo Quantova"
+      />
       <span class="brand">Quantova</span>
     </div>
   </nav>
 
   <div class="add-container">
-    <h2>Nova Transação</h2>
-    <p class="subtitle">Regista uma despesa ou receita</p>
+    <div class="tx-back">
+      <div class="transaction-form">
+        <header>
+          <h1>Nova Transação</h1>
+          <p>Regista uma despesa ou receita</p>
+        </header>
 
-    <div class="form-box">
-      <form id="formAdd">
+        <form id="formAdd">
+          <div class="input-section tipo-section">
+            <input type="hidden" id="tipo" value="despesa" />
 
-        <label>Tipo</label>
-        <input type="hidden" id="tipo" value="despesa" />
-        <div style="display:flex;gap:10px;margin-bottom:10px;">
-          <button type="button" id="btnDespesa" class="cat-btn active"
-            style="flex:1;flex-direction:row;justify-content:center;gap:8px;"
-            onclick="setTipo('despesa')">🪙 Despesa</button>
-          <button type="button" id="btnReceita" class="cat-btn"
-            style="flex:1;flex-direction:row;justify-content:center;gap:8px;"
-            onclick="setTipo('receita')">💰 Receita</button>
-        </div>
+            <div class="tipo-wrap">
+              <button type="button" id="btnDespesa" class="tipo-step-btn active">
+                🪙 Despesa
+              </button>
 
-        <label for="valor">Valor</label>
-        <input type="number" id="valor" class="input-grande" placeholder="0.00" min="0.01" step="0.01" required />
+              <button type="button" id="btnReceita" class="tipo-step-btn">
+                💰 Receita
+              </button>
+            </div>
 
-        <label for="descricao">Descrição (opcional)</label>
-        <input type="text" id="descricao" class="input-normal" placeholder="Ex: Jantar com amigos" />
+            <div class="animated-button">
+              <span class="icon-holder icon-tipo">🧾</span>
+              <button type="button" class="next-button next-tipo" aria-label="Avançar para valor">↑</button>
+            </div>
+          </div>
 
-        <label for="data">Data</label>
-        <input type="date" id="data" class="input-normal" required />
+          <div class="input-section valor-section folded">
+            <input
+              type="number"
+              id="valor"
+              class="valor"
+              placeholder="VALOR"
+              min="0.01"
+              step="0.01"
+              required
+            />
 
-        <label for="categoria">Categoria</label>
-        <select id="categoria" class="input-normal" required style="cursor:pointer;"></select>
+            <div class="animated-button">
+              <span class="icon-holder icon-valor">€</span>
+              <button type="button" class="next-button next-valor" aria-label="Avançar para descrição">↑</button>
+            </div>
+          </div>
 
-        <button type="submit" class="btn-submit">Guardar</button>
-        <button type="button" class="btn-voltar" onclick="window.location.href='index.html'">← Voltar</button>
+          <div class="input-section descricao-section folded">
+            <input
+              type="text"
+              id="descricao"
+              class="descricao"
+              placeholder="DESCRIÇÃO (OPCIONAL)"
+            />
 
-      </form>
+            <div class="animated-button">
+              <span class="icon-holder icon-descricao">✎</span>
+              <button type="button" class="next-button next-descricao" aria-label="Avançar para data">↑</button>
+            </div>
+          </div>
+
+          <div class="input-section data-section folded">
+            <input
+              type="date"
+              id="data"
+              class="data-input"
+              required
+            />
+
+            <div class="animated-button">
+              <span class="icon-holder icon-data">📅</span>
+              <button type="button" class="next-button next-data" aria-label="Avançar para categoria">↑</button>
+            </div>
+          </div>
+
+          <div class="input-section categoria-section folded">
+            <select id="categoria" class="categoria-select" required></select>
+
+            <div class="animated-button">
+              <span class="icon-holder icon-categoria">🏷️</span>
+              <button type="submit" class="next-button next-submit" aria-label="Guardar transação">✓</button>
+            </div>
+          </div>
+
+          <div class="success">
+            <p>TRANSAÇÃO GUARDADA</p>
+          </div>
+        </form>
+
+        <button
+          type="button"
+          class="btn-voltar tx-voltar"
+          onclick="window.location.href='index.html'"
+        >
+          ← Voltar
+        </button>
+      </div>
     </div>
   </div>
 
