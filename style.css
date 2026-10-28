@@ -10,3 +10,19 @@
 @media(max-width:390px){.brand small{display:none}.nav-link{padding:8px 7px}.summary-card{padding:13px 10px}.summary-card>strong{font-size:17px}.summary-card>.category-highlight{font-size:14px!important}.balance-card>strong{font-size:21px}.transaction-actions{flex-direction:column}.transaction-row{gap:7px}.transaction-amount{font-size:9px}}
 
 .amount-wrap .expense-sign{color:#cf5f67}.amount-wrap .income-sign{color:#218b67}
+
+.month-switch{position:relative}
+.month-popover{position:absolute;z-index:15;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:min(286px,calc(100vw - 30px));padding:14px;border:1px solid #e7eaf0;border-radius:15px;background:#fff;box-shadow:0 16px 38px #17294a20}
+.month-popover[hidden]{display:none}
+.month-popover-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.month-popover-header strong{font:700 14px Manrope,sans-serif;color:#26334a}
+.month-switch .month-popover-header button{width:32px;height:32px;border:0;border-radius:9px;background:#f3f5f8;color:#5d6879;font-size:16px}
+.month-switch .month-popover-header button:hover:not(:disabled){background:#eeecff;color:#6253cf}
+.month-switch .month-popover-header button:disabled{opacity:.35;cursor:default}
+.month-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.month-switch .month-grid .month-option{width:auto;height:37px;min-width:0;padding:0 3px;border:1px solid transparent;border-radius:9px;background:#f7f8fa;color:#657185;font-size:11px;font-weight:600;text-transform:capitalize}
+.month-switch .month-grid .month-option:hover:not(:disabled){border-color:#d9d4f5;background:#f4f2ff;color:#5547c5}
+.month-switch .month-grid .month-option.selected{background:#6656d9;color:#fff}
+.month-switch .month-grid .month-option:disabled{opacity:.35;cursor:default}
+.month-switch .month-grid .month-option:focus-visible{outline:3px solid #7669e833;outline-offset:1px}
+@media(max-width:600px){.month-popover{top:calc(100% + 8px)}}

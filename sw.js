@@ -1,4 +1,4 @@
-const CACHE = "quantova-v9";
+const CACHE = "quantova-v10";
 const FICHEIROS = [
   "./index.html", "./add.html", "./historico.html",
   "./style.css", "./app.js", "./add.js",

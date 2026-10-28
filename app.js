@@ -74,24 +74,39 @@ function atualizarData() {
   const hoje = new Date();
   const mesAtual = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}`;
   const selecionado = `${dataAtual.getFullYear()}-${String(dataAtual.getMonth() + 1).padStart(2, "0")}`;
-  const seletor = document.getElementById("monthPicker");
-  seletor.value = selecionado;
-  seletor.max = mesAtual;
   document.getElementById("dataAtual").textContent = new Intl.DateTimeFormat("pt-PT", { month: "long", year: "numeric" }).format(dataAtual);
   document.getElementById("nextMonth").disabled = selecionado >= mesAtual;
 }
-function mesAnterior() { dataAtual = new Date(dataAtual.getFullYear(), dataAtual.getMonth() - 1, 1); carregar(); }
-function mesSeguinte() { if (!document.getElementById("nextMonth").disabled) { dataAtual = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 1); carregar(); } }
+function mesAnterior() { fecharSeletorMes(); dataAtual = new Date(dataAtual.getFullYear(), dataAtual.getMonth() - 1, 1); carregar(); }
+function mesSeguinte() { if (!document.getElementById("nextMonth").disabled) { fecharSeletorMes(); dataAtual = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 1); carregar(); } }
+let anoSeletorMes = dataAtual.getFullYear();
+const nomesMeses = Array.from({ length: 12 }, (_, mes) => new Intl.DateTimeFormat("pt-PT", { month: "long" }).format(new Date(2024, mes, 1)));
 function abrirSeletorMes() {
-  const seletor = document.getElementById("monthPicker");
-  if (typeof seletor.showPicker === "function") seletor.showPicker();
-  else { seletor.focus(); seletor.click(); }
+  const popover = document.getElementById("monthPopover");
+  if (!popover.hidden) { fecharSeletorMes(); return; }
+  anoSeletorMes = dataAtual.getFullYear();
+  popover.hidden = false;
+  document.getElementById("monthPickerButton").setAttribute("aria-expanded", "true");
+  renderizarMeses();
 }
-document.getElementById("monthPicker").addEventListener("change", function () {
-  if (!this.value) return;
-  const [ano, mes] = this.value.split("-").map(Number);
-  dataAtual = new Date(ano, mes - 1, 1);
-  carregar();
-});
+function fecharSeletorMes() { document.getElementById("monthPopover").hidden = true; document.getElementById("monthPickerButton").setAttribute("aria-expanded", "false"); }
+function renderizarMeses() {
+  const agora = new Date(), grade = document.getElementById("monthGrid");
+  document.getElementById("yearLabel").textContent = anoSeletorMes;
+  document.getElementById("yearPrevious").disabled = anoSeletorMes <= 1970;
+  document.getElementById("yearNext").disabled = anoSeletorMes >= agora.getFullYear();
+  grade.replaceChildren();
+  nomesMeses.forEach((nome, indice) => {
+    const botao = document.createElement("button"); botao.type = "button"; botao.className = "month-option"; botao.textContent = nome;
+    if (anoSeletorMes === dataAtual.getFullYear() && indice === dataAtual.getMonth()) botao.classList.add("selected");
+    botao.disabled = anoSeletorMes > agora.getFullYear() || (anoSeletorMes === agora.getFullYear() && indice > agora.getMonth());
+    botao.addEventListener("click", () => { dataAtual = new Date(anoSeletorMes, indice, 1); fecharSeletorMes(); carregar(); });
+    grade.appendChild(botao);
+  });
+}
+document.getElementById("yearPrevious").addEventListener("click", () => { if (anoSeletorMes > 1970) { anoSeletorMes--; renderizarMeses(); } });
+document.getElementById("yearNext").addEventListener("click", () => { if (anoSeletorMes < new Date().getFullYear()) { anoSeletorMes++; renderizarMeses(); } });
+document.addEventListener("click", (event) => { if (!event.target.closest(".month-switch")) fecharSeletorMes(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape") fecharSeletorMes(); });
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => { });
 window.addEventListener("load", carregar);
