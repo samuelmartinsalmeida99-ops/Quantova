@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a2c"><title>Quantova · Resumo</title>
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png"><link rel="icon" href="./favicon.ico">
+  <link rel="manifest" href="./manifest.json"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./index.html"><span class="brand-mark">Q</span><span>quantova<small>FINANÇAS PESSOAIS</small></span></a>
+    <nav class="main-nav" aria-label="Navegação principal"><a class="nav-link active" href="./index.html"><span>◫</span> Resumo</a><a class="nav-link" href="./historico.html"><span>≡</span> Histórico</a></nav>
+    <button class="icon-btn" aria-label="Definições" onclick="abrirDefinicoes()">⚙</button>
+  </header>
+  <main class="page-shell">
+    <section class="page-heading"><div><p class="eyebrow">O TEU DINHEIRO, COM CLAREZA</p><h1>Resumo</h1><p class="muted">Acompanha o que entra e sai, mês a mês.</p></div>
+      <div class="month-switch"><button aria-label="Mês anterior" onclick="mesAnterior()">←</button><button type="button" class="month-pick-button" onclick="abrirSeletorMes()" aria-label="Escolher mês"><span class="calendar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M7.5 3v4M16.5 3v4M4 9.5h16M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"></path></svg></span><span class="month-button-text"><small>PERÍODO</small><strong id="dataAtual">—</strong></span><svg class="month-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5"></path></svg></button><input type="month" id="monthPicker" class="month-picker-hidden" aria-label="Escolher mês"><button id="nextMonth" aria-label="Mês seguinte" onclick="mesSeguinte()">→</button></div>
+    </section>
+    <section class="summary-grid" aria-label="Resumo do mês">
+      <article class="summary-card balance-card"><span class="summary-label">Saldo do mês</span><strong id="saldo">€0,00</strong><span class="card-note" id="saldoNota">Receitas menos despesas</span><span class="balance-orb"></span></article>
+      <article class="summary-card"><span class="summary-label"><i class="dot expense"></i>Despesas</span><strong id="total">€0,00</strong><span class="card-note">Total gasto este mês</span></article>
+      <article class="summary-card"><span class="summary-label"><i class="dot income"></i>Receitas</span><strong id="receitas">€0,00</strong><span class="card-note">Total recebido este mês</span></article>
+      <article class="summary-card"><span class="summary-label">🏷️ Categoria principal</span><strong id="topCategoria" class="category-highlight">—</strong><span class="card-note" id="topCategoriaNota">Ainda sem despesas neste mês</span></article>
+    </section>
+    <section class="content-grid">
+      <article class="panel expense-breakdown"><div class="panel-heading"><div><p class="eyebrow">DISTRIBUIÇÃO DO MÊS</p><h2>Despesas por categoria</h2></div><span class="panel-unit">DESPESAS</span></div><div id="lista" class="category-insights" aria-label="Distribuição das despesas por categoria"></div></article>
+      <article class="panel categories-panel income-panel"><div class="panel-heading"><div><p class="eyebrow">O QUE ENTRA</p><h2>Receitas por categoria</h2></div></div><div id="listaReceitas"></div></article>
+    </section>
+  </main>
+  <a href="./add.html" class="fab"><span>＋</span><span class="fab-label">Nova transação</span></a>
+  <div id="modalDefinicoes" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden><section class="modal-card"><button class="modal-close" onclick="fecharDefinicoes()" aria-label="Fechar">×</button><p class="eyebrow">PREFERÊNCIAS</p><h2 id="settingsTitle">Definições</h2>
+    <label for="selectMoeda">Moeda</label><select id="selectMoeda" class="field"><option value="EUR">Euro (€)</option><option value="USD">Dólar americano ($)</option><option value="GBP">Libra (£)</option><option value="BRL">Real (R$)</option></select><button onclick="guardarMoeda()" class="button button-primary full">Guardar moeda</button>
+    <div class="settings-section"><h3>Cópia de segurança</h3><p class="muted small">Guarda um backup completo ou exporta as transações em CSV.</p><div class="button-row"><button class="button button-soft" onclick="exportarDados()">↓ Backup JSON</button><button class="button button-soft" onclick="exportarCSV()">↓ Exportar CSV</button></div><button class="button button-soft full" onclick="document.getElementById('importFile').click()">↑ Importar backup JSON</button><input id="importFile" type="file" accept="application/json,.json" hidden onchange="importarDados(this)"></div>
+    <div class="settings-section danger-section"><h3>Apagar dados</h3><p class="muted small">Remove permanentemente todas as transações deste dispositivo.</p><button onclick="apagarTudo()" class="button button-danger full">Apagar todos os dados</button></div>
+  </section></div>
+  <script src="./db-local.js"></script><script src="./settings.js"></script><script src="./app.js"></script>
+</body></html>
